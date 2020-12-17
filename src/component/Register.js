@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {connect} from 'react-redux';
-import {userAction, userDelete, userEdit, userUpdateIndex} from '../redux/userData/action';
+import {userAdd, userDelete, userEdit} from '../redux/userData/action';
 import {Row, Col, Card, Form, Input, Radio, Button, InputNumber, message} from "antd";
 import {UserOutlined, MailOutlined, LockOutlined} from "@ant-design/icons";
 import 'antd/dist/antd.css';
 import TableData from "./TableData";
 
 const Register = (props) => {
-    const {userActions, list, userEdits} = props;
+    const {userCreate, list, userEdits, userDeletes} = props;
     const [userDetail, setUserDetail] = useState({
         firstName: "",
         lastName: "",
@@ -81,7 +81,7 @@ const Register = (props) => {
 
             } else {
                 userDetail.id = data.length + 1;
-                userActions(userDetail);
+                userCreate(userDetail);
                 setEditable(null)
                 setUserDetail({})
             }
@@ -93,10 +93,11 @@ const Register = (props) => {
         setEditable(index);
     }
 
-    const onDelete = (id) => {
-        // if (userDelete(id)){
-        //     message.success("Data is delete successfully");
-        // }
+    const onDelete = (index) => {
+        console.log(index);
+        userDeletes(index)
+        message.success("Data is delete successfully");
+
     }
     return (
         <>
@@ -170,9 +171,9 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        userActions: (payload) => dispatch(userAction(payload)),
+        userCreate: (payload) => dispatch(userAdd(payload)),
         userEdits: (payload) => dispatch(userEdit(payload)),
-        userDelete: (payload) => dispatch(userDelete(payload)),
+        userDeletes: (payload) => dispatch(userDelete(payload)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

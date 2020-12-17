@@ -2,7 +2,7 @@ import {USER_ADD} from "./reduxType";
 import {USER_DELETE} from "./reduxType";
 import {USER_EDIT} from "./reduxType";
 
-export const userAction = (data) => {
+export const userAdd = (data) => {
     return {
         type: USER_ADD,
         payload: data
