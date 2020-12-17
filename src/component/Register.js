@@ -7,7 +7,7 @@ import 'antd/dist/antd.css';
 import TableData from "./TableData";
 
 const Register = (props) => {
-    const {userCreate, list, userEdits, userDeletes} = props;
+    const {userCreate, list, dispatch} = props;
     const [userDetail, setUserDetail] = useState({
         firstName: "",
         lastName: "",
@@ -75,13 +75,12 @@ const Register = (props) => {
             return setError(errorObj);
         } else {
             if (editable !== null && editable !== -1) {
-                userEdits(userDetail);
+                dispatch(userEdit(userDetail))
                 setEditable(null)
                 setUserDetail({})
-
             } else {
                 userDetail.id = data.length + 1;
-                userCreate(userDetail);
+                dispatch(userAdd(userDetail))
                 setEditable(null)
                 setUserDetail({})
             }
@@ -94,8 +93,7 @@ const Register = (props) => {
     }
 
     const onDelete = (index) => {
-        console.log(index);
-        userDeletes(index)
+        dispatch(userDelete(index))
         message.success("Data is delete successfully");
 
     }
@@ -169,11 +167,4 @@ const mapStateToProps = (state) => {
         list: state.data
     }
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        userCreate: (payload) => dispatch(userAdd(payload)),
-        userEdits: (payload) => dispatch(userEdit(payload)),
-        userDeletes: (payload) => dispatch(userDelete(payload)),
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapStateToProps)(Register);

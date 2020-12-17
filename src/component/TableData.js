@@ -3,8 +3,6 @@ import {Popconfirm, Button, message, Row, Col, Input} from 'antd';
 import {DeleteOutlined, EditOutlined, SearchOutlined} from '@ant-design/icons';
 import Table from "antd/lib/table";
 import {connect} from 'react-redux';
-import {userDelete} from '../redux/userData/action.js';
-import {userEdit} from '../redux/userData/action.js';
 // import axios from 'axios';
 // import {userAction} from "../redux/userData/action";
 // import {useHistory} from 'react-router-dom';
