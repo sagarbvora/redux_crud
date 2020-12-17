@@ -7,7 +7,7 @@ import 'antd/dist/antd.css';
 import TableData from "./TableData";
 
 const Register = (props) => {
-    const {userCreate, list, dispatch} = props;
+    const {list, dispatch} = props;
     const [userDetail, setUserDetail] = useState({
         firstName: "",
         lastName: "",

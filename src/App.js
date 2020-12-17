@@ -5,7 +5,6 @@ import './User.css'
 import {Provider} from 'react-redux';
 import store from './redux/store';
 import Register from "./component/Register";
-import TableData from "./component/TableData";
 function App() {
   return (
       <>

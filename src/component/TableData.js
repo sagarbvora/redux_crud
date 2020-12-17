@@ -25,8 +25,6 @@ const TableData = (props) => {
         setData(list);
     }, [list])
 
-
-
     // const onChange = e => {
     //     const {name, value} = e.target;
     //     setSearchDetails({...searchDetails, [name]: value});
