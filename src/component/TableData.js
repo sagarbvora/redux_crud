@@ -1,35 +1,38 @@
 import React, {useEffect, useState} from 'react';
-// import axios from 'axios';
 import {Popconfirm, Button, message, Row, Col, Input} from 'antd';
 import {DeleteOutlined, EditOutlined, SearchOutlined} from '@ant-design/icons';
 import Table from "antd/lib/table";
+import {connect} from 'react-redux';
+import {userDelete} from '../redux/userData/action.js';
+import {userEdit} from '../redux/userData/action.js';
+// import axios from 'axios';
+// import {userAction} from "../redux/userData/action";
 // import {useHistory} from 'react-router-dom';
 
-// const {Column, ColumnGroup} = Table;
-const {Search} = Input;
+// const {Column, ColumnGroup} = TableData;
+// const {Search} = Input;
 
-const Table = (props) => {
-    const [searchDetails, setSearchDetails] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        age: "",
-        gender: ""
-    });
-    const [list, setList] = useState([]);
-    const [searchDuplicate, setSearchDuplicate] = useState([]);
+const TableData = (props) => {
+    const {list, onEdit, onDelete} = props;
+    // const [searchDetails, setSearchDetails] = useState({
+    //     //     firstName: "",
+    //     //     lastName: "",
+    //     //     email: "",
+    //     //     age: "",
+    //     //     gender: ""
+    //     // });
+    const [data1, setData] = useState([]);
 
-    const onEdit = (id) => {
+    useEffect(() => {
+        setData(list);
+    }, [list])
 
-    }
 
-    const onDelete = (id) => {
-    }
 
-    const onChange = e => {
-        const {name, value} = e.target;
-        setSearchDetails({...searchDetails, [name]: value});
-    }
+    // const onChange = e => {
+    //     const {name, value} = e.target;
+    //     setSearchDetails({...searchDetails, [name]: value});
+    // }
     // const onSearch = () => {
     //     let searchValue = searchDetails;
     //     let row = searchDuplicate || [];
@@ -90,11 +93,11 @@ const Table = (props) => {
         {
             title: 'Action',
             dataIndex: 'id',
-            render: (text, record) => {
+            render: (text, record, index) => {
                 return (
                     <div>
                         <Button primary onClick={() => {
-                            onEdit(record.id)
+                            onEdit(index)
                         }}><EditOutlined/></Button>
                         &nbsp;&nbsp;
                         <Popconfirm placement="bottom" title="Are you sure to delete this record?" onConfirm={() => {
@@ -117,9 +120,8 @@ const Table = (props) => {
                 <Col span={12} className="mt-3">
                     <Table
                         columns={columns}
-                        dataSource={list || []}
+                        dataSource={data1 || []}
                         pagination={{pageSize: 10}}
-                        rowKey={'key'}
                     >
                     </Table>
                 </Col>
@@ -127,4 +129,12 @@ const Table = (props) => {
         </>
     );
 }
-export default Table;
+const mapStateToProps = (state) => {
+    return {
+        list: state.data
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(TableData);
